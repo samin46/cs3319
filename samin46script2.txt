@@ -1,0 +1,72 @@
+SHOW DATABASES;
+USE samin46assign2db;
+LOAD DATA LOCAL INFILE 'loaddatafall2018.txt' INTO TABLE Product FIELDS TERMINATED BY ',';
+SELECT * FROM Product;
+
+INSERT INTO Product
+	(ProductID, Description, Cost, Quantity)
+VALUES
+	('66', 'Elbow Pads', '14.25', '120'),
+	('33', 'Fingerless gloves', '12.95', '42');
+
+INSERT INTO Agent
+	(AgentID, FirstName, LastName, Location, Commission)
+VALUES
+	('99', 'Hugh', 'Grant', 'Springfield', '16'),
+	('22', 'Courtney', 'Cox', 'New York', '25'),
+	('66', 'Rosie', 'ODonnell', 'Ottawa', '100'),
+	('33', 'David', 'Letterman', 'Bedrock', '100'),
+	('11', 'Regis', 'Philbin', 'Boston', '33'),
+	('12', 'Rosie', 'Cox', 'Ottawa', '50'),
+	('42', 'Shivang', 'Amin', 'Toronto', '99');
+
+
+INSERT INTO Customer
+	(CustomerID, FirstName, LastName, City, PhoneNumber)
+VALUES
+	('21', 'Homer', 'Simpson', 'Springfield', '686-8956'),
+	('31', 'Sideshow', 'Bob', 'Springfield', '686-5555'),
+	('12', 'Monty', 'Burns', 'Springfield', '789-0000'),
+	('15', 'Fred', 'Flintstone', 'Bedrock', '777-2345'),
+	('13', 'Super', 'Man', 'Kypto', '888-1234'),
+	('10', 'Barney', 'Rubble', 'Bedrock', '777-1234'),
+	('14', 'Peter',  'Griffens', 'Providence', '987-4567');
+
+
+INSERT INTO PurchasingInfo
+	(CustomerID, ProductDescription, PurchasedQuantity)
+VALUES
+	('21', 'Helmet', '20'),
+	('21', 'Elbow Pads', '20'),
+	('31', 'Helmet', '1'),
+	('31', 'Socks', '2'),
+	('31', 'Knee Pads', '4'),
+	('31', 'Elbow Pads', '2'),
+	('15', 'Elbow Pads', '2'),
+	('15', 'Knee Pads', '2'),
+	('14', 'Elbow Pads', '19');
+
+	
+UPDATE Customer SET AgentID='99' WHERE FirstName='Homer';
+UPDATE Customer SET AgentID ='99' WHERE FirstName='Monty';
+UPDATE Customer SET AgentID ='99' WHERE FirstName='Peter';
+UPDATE Customer SET AgentID ='33' WHERE FirstName='Super';
+UPDATE Customer SET AgentID ='11' WHERE FirstName='Barney';
+UPDATE Customer SET AgentID ='11' WHERE FirstName='Fred';
+UPDATE Customer SET AgentID ='66' WHERE FirstName='Sideshow';
+
+SELECT * FROM Product;
+SELECT * FROM Customer;
+SELECT * FROM Agent;
+SELECT * FROM PurchasingInfo;
+
+UPDATE Customer SET FirstName= 'Wonder', LastName= 'Woman' WHERE FirstName= 'Super' AND LastName = 'Man';
+
+UPDATE PurchasingInfo SET PurchasedQuantity = 5 WHERE CustomerID = (SELECT CustomerID FROM Customer WHERE FirstName = 'Sideshow');
+
+UPDATE Customer SET City = 'Boston' WHERE AgentID = (SELECT AgentID FROM Agent WHERE FirstName = 'Regis');
+
+SELECT * FROM Product;
+SELECT * FROM Customer;
+SELECT * FROM Agent;
+SELECT * FROM PurchasingInfo;

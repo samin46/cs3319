@@ -1,0 +1,22 @@
+SHOW DATABASES;
+
+DROP DATABASE IF EXISTS samin46assign2db;
+
+CREATE DATABASE samin46assign2db;
+
+USE samin46assign2db;
+
+GRANT USAGE ON *.* TO 'ta'@'localhost';
+DROP USER 'ta'@'localhost';
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319';
+GRANT ALL PRIVILEGES ON yourwesternuseridassign2db.* TO 'ta'@'localhost';
+FLUSH PRIVILEGES;
+
+SHOW TABLES;
+
+CREATE TABLE Product(ProductID CHAR(2), Description VARCHAR(20), Cost FLOAT, Quantity INT, PRIMARY KEY (ProductID));
+CREATE TABLE Agent(AgentID CHAR(2), FirstName VARCHAR(30), LastName VARCHAR(30), Location VARCHAR(15), Commission INT, PRIMARY KEY(AgentID));
+CREATE TABLE Customer(CustomerID CHAR(2), FirstName VARCHAR(30), LastName VARCHAR(30), City VARCHAR(15), PhoneNumber VARCHAR(8), AgentID CHAR(2), Primary Key(CustomerID), FOREIGN KEY(AgentID) REFERENCES Agent(AgentID));
+CREATE TABLE PurchasingInfo(CustomerID CHAR(2), ProductDescription VARCHAR(20), PurchasedQuantity INT, FOREIGN KEY(CustomerID) REFERENCES Customer(CustomerID));
+
+SHOW TABLES;

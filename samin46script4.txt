@@ -1,0 +1,17 @@
+USE samin46assign2db;
+
+SELECT * FROM Agent;
+SELECT * FROM PurchasingInfo;
+SELECT * FROM Product;
+SELECT * FROM Customer;
+
+CREATE VIEW CustomerPurchase AS SELECT Customer.FirstName, Customer.LastName, PurchasingInfo.ProductDescription, PurchasingInfo.PurchasedQuantity, PurchasingInfo.PurchasedQuantity*Product.Cost AS TotalPriceOfEachProduct FROM Customer, PurchasingInfo, Product WHERE Customer.CustomerID = PurchasingInfo.CustomerID AND Product.Description = PurchasingInfo.ProductDescription;
+
+SELECT * FROM CustomerPurchase;
+SELECT * FROM CustomerPurchase WHERE TotalPriceOfEachProduct > 100;
+SELECT * FROM Product;
+DELETE FROM Product WHERE Description = 'Bandages';
+SELECT * FROM Product;
+DELETE * FROM Agent WHERE CityWorkingOutOf = 'Springfield';
+
+-- The rows where agents from Springfield arent deleted because those rows in table Agent are referencing to table Customer

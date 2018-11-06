@@ -1,0 +1,45 @@
+USE samin46assign2db;
+-- Query1
+SELECT Description FROM Product;
+
+-- Query2
+SELECT DISTINCT City FROM Customer;
+
+-- Query3
+SELECT * FROM Agent ORDER BY Location;
+
+-- Query4
+SELECT FirstName, LastName FROM Customer WHERE CITY = "Springfield";
+
+-- Query5
+SELECT LastName FROM Customer WHERE AgentID = "11";
+
+-- Query6
+SELECT Description FROM Product WHERE Description LIKE '%pad%' AND Description LIKE '%Pad%';
+
+-- Query7
+Select LastName, ProductDescription, PurchasedQuantity FROM PurchasingInfo A INNER JOIN Customer B ON A.CustomerID = B.CustomerID;
+
+-- Query8
+SELECT SUM(PurchasedQuantity) AS 'Homer\'s Total Purchases' FROM Customer A INNER JOIN PurchasingInfo B ON A.FirstName = "Homer" AND A.CustomerID = B.CustomerID;
+
+-- Query9
+SELECT FirstName, LastName, SUM(PurchasedQuantity) AS 'Total Purchases' FROM Customer A INNER JOIN PurchasingInfo B ON A.CustomerID = B.CustomerID GROUP BY FirstName, LastName;
+
+-- Query10
+SELECT Description, Quantity FROM PurchasingInfo A RIGHT JOIN Product B ON A.ProductDescription = B.Description WHERE A.ProductDescription IS NULL;
+
+-- Query11
+SELECT DISTINCT Description, Quantity FROM PurchasingInfo, Product WHERE Product.Description NOT IN (SELECT Description FROM PurchasingInfo WHERE CustomerID = (SELECT CustomerID FROM Customer WHERE FirstName = 'Fred' AND LastName = 'Flinstone'));
+
+-- Query12
+SELECT Agent.FirstName AS 'Agent FirstName' , Agent.LastName AS 'Agent LastName', Customer.FirstName AS 'Customer FirstName', Customer.LastName AS 'Customer LastName' FROM Customer, Agent Where Customer.City = Agent.Location;
+
+-- Query13
+SELECT SUM(PurchasedQuantity) AS 'Total Purchased Knee Pads' FROM PurchasingInfo where ProductDescription = "Knee Pads";
+
+-- Query14
+SELECT ProductDescription FROM PurchasingInfo GROUP BY ProductDescription HAVING COUNT(ProductDescription) >= 3;
+
+-- Query15
+SELECT Agent.FirstName, Agent.LastName FROM Agent, Customer, PurchasingInfo WHERE PurchasingInfo.ProductDescription = 'Knee Pads' AND Customer.CustomerID = PurchasingInfo.CustomerID AND Customer.AgentID = Agent.AgentID;
